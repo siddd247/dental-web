@@ -61,8 +61,8 @@ const Booking = () => {
 
   if (isSuccess) {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-20 text-center">
-        <div className="bg-white p-10 rounded-2xl shadow-sm border border-slate-200">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 py-16 text-center w-full">
+        <div className="bg-white p-6 sm:p-10 rounded-2xl shadow-sm border border-slate-200 w-full">
           <CheckCircle2 className="h-20 w-20 text-green-500 mx-auto mb-6" />
           <h2 className="text-3xl font-bold text-slate-900 mb-4">Booking Confirmed!</h2>
           <p className="text-lg text-slate-600 mb-8">
@@ -79,21 +79,21 @@ const Booking = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 lg:py-16">
-      <div className="text-center mb-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 lg:py-16 w-full max-w-[100vw] overflow-x-hidden">
+      <div className="text-center mb-8 md:mb-12">
         <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900">Book an Appointment</h1>
-        <p className="text-slate-600 mt-3 text-lg">Select a convenient date and time for your visit.</p>
+        <p className="text-slate-600 mt-3 text-base md:text-lg">Select a convenient date and time for your visit.</p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 w-full">
         {/* Step 1 & 2: Date & Time Selection */}
-        <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200">
+        <div className="min-w-0 bg-white p-5 md:p-8 rounded-2xl shadow-sm border border-slate-200 w-full">
           <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2 mb-6">
             <CalendarDays className="h-6 w-6 text-primary-500" />
             1. Select Date
           </h2>
           
-          <div className="flex overflow-x-auto gap-3 pb-4 mb-8 hide-scrollbar">
+          <div className="flex overflow-x-auto gap-2 md:gap-3 pb-4 mb-8 hide-scrollbar w-full">
             {weekDays.map((date, idx) => {
               const isActive = format(date, 'yyyy-MM-dd') === format(selectedDate, 'yyyy-MM-dd');
               return (
@@ -151,8 +151,8 @@ const Booking = () => {
         </div>
 
         {/* Step 3: Patient Details */}
-        <div className={`transition-opacity duration-300 ${!selectedTime ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
-          <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200 h-full">
+        <div className={`min-w-0 transition-opacity duration-300 w-full ${!selectedTime ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+          <div className="bg-white p-5 md:p-8 rounded-2xl shadow-sm border border-slate-200 h-full w-full">
             <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2 mb-8">
               <User className="h-6 w-6 text-primary-500" />
               3. Patient Details
