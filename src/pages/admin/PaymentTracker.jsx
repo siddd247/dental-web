@@ -155,7 +155,7 @@ const PaymentTracker = () => {
                   setNewPatient({ ...newPatient, name: e.target.value })
                 }
                 className="w-full rounded-lg border border-slate-300 px-3 py-2 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-primary-500"
-                placeholder="Jane Doe"
+                placeholder="Your Full Name"
               />
             </div>
             <div>
@@ -170,7 +170,7 @@ const PaymentTracker = () => {
                   setNewPatient({ ...newPatient, mobile: e.target.value })
                 }
                 className="w-full rounded-lg border border-slate-300 px-3 py-2 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-primary-500"
-                placeholder="1234567890"
+                placeholder="10-digit Mobile"
               />
             </div>
             <div>

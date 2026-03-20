@@ -171,7 +171,7 @@ const Booking = () => {
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                     className="pl-10 block w-full rounded-lg border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                    placeholder="Jane Doe"
+                    placeholder="Your Full Name"
                   />
                 </div>
               </div>
@@ -190,7 +190,7 @@ const Booking = () => {
                     value={formData.mobile}
                     onChange={(e) => setFormData({...formData, mobile: e.target.value})}
                     className="pl-10 block w-full rounded-lg border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                    placeholder="1234567890"
+                    placeholder="10-digit Mobile"
                   />
                 </div>
               </div>

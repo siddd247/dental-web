@@ -12,7 +12,7 @@ const PublicLayout = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 text-primary-600">
             <Stethoscope className="h-8 w-8" />
-            <span className="text-xl font-bold tracking-tight">SmileCare Clinic</span>
+            <span className="text-xl font-bold tracking-tight">Gagan Dental Care</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -72,17 +72,31 @@ const PublicLayout = () => {
           <div className="flex flex-col md:flex-row items-center gap-2 text-white">
             <div className="flex items-center gap-2">
               <Stethoscope className="h-6 w-6 text-primary-500" />
-              <span className="font-semibold">SmileCare Clinic</span>
+              <span className="font-semibold">Gagan Dental Care</span>
             </div>
           </div>
           <div className="text-sm">
-            &copy; {new Date().getFullYear()} SmileCare Clinic. All rights reserved.
+            &copy; {new Date().getFullYear()} Gagan Dental Care. All rights reserved.
           </div>
           <div className="text-sm flex gap-4">
             <Link to="/admin/login" className="hover:text-white transition-colors">Admin Login</Link>
           </div>
         </div>
       </footer>
+
+      {/* WhatsApp Floating Button */}
+      <a
+        href="https://wa.me/919622172998"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform z-50 group"
+      >
+        <span className="font-bold text-xl">WA</span>
+        {/* Tooltip */}
+        <span className="absolute right-16 bg-white text-slate-800 text-sm px-3 py-1.5 rounded-lg shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-medium">
+          Chat with us!
+        </span>
+      </a>
     </div>
   );
 };

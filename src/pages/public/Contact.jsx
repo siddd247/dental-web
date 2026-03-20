@@ -73,53 +73,61 @@ const Contact = () => {
         </p>
       </div>
 
-      <div className="w-full grid lg:grid-cols-3 gap-10">
-        
-        {/* Contact Info Sidebar */}
-        <div className="lg:col-span-1 space-y-6">
-          <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 h-full">
-            <h3 className="text-xl font-bold text-slate-800 mb-6 pb-4 border-b border-slate-100">Clinic Details</h3>
-            
-            <div className="space-y-8">
-              <div className="flex gap-4 items-start">
-                <div className="bg-primary-50 p-3 rounded-2xl text-primary-600 shrink-0">
-                  <Phone className="h-6 w-6" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-slate-900">Phone</h4>
-                  <p className="text-slate-600 mt-1 hover:text-primary-600 transition-colors cursor-pointer">(123) 456-7890</p>
-                </div>
-              </div>
-
-              <div className="flex gap-4 items-start">
-                <div className="bg-primary-50 p-3 rounded-2xl text-primary-600 shrink-0">
-                  <MapPin className="h-6 w-6" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-slate-900">Address</h4>
-                  <p className="text-slate-600 mt-1">
-                    123 Dental Suite<br/>
-                    Health Avenue, NY 10001
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-4 items-start">
-                <div className="bg-primary-50 p-3 rounded-2xl text-primary-600 shrink-0">
-                  <Clock className="h-6 w-6" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-slate-900">Hours</h4>
-                  <p className="text-slate-600 mt-1">Mon-Sat 9AM-5PM</p>
-                </div>
-              </div>
-            </div>
+      {/* Clinic Info Cards */}
+      <div className="w-full grid md:grid-cols-3 gap-6 mb-12">
+        <div className="bg-primary-50 p-8 rounded-2xl shadow-sm flex flex-col items-center text-center">
+          <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mb-6 shadow-sm">
+            <MapPin className="h-8 w-8 text-primary-600" />
           </div>
+          <h3 className="text-xl font-bold text-slate-900 mb-3">Address</h3>
+          <p className="text-slate-600 mb-6 flex-1">
+            H.no.133, 7, Lane 5,<br/>
+            Guru Nanak Nagar, Jammu,<br/>
+            Jammu and Kashmir 180004
+          </p>
+          <a
+            href="https://www.google.com/maps/place/Dr.+Gagan+dental+care/@32.6930174,74.871287,17z/data=!3m1!4b1!4m6!3m5!1s0x391e85f2c359fc03:0xfb7b54989e96abc2!8m2!3d32.6930174!4d74.871287!16s%2Fg%2F11j8mcp0k9?entry=ttu&g_ep=EgoyMDI2MDMxNy4wIKXMDSoASAFQAw%3D%3D"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full bg-white text-primary-600 hover:bg-primary-600 hover:text-white border border-primary-200 font-semibold px-4 py-2.5 rounded-xl transition-colors shadow-sm"
+          >
+            Get Directions
+          </a>
         </div>
 
-        {/* Contact Form */}
-        <div className="lg:col-span-2">
-          <div className="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
+        <div className="bg-primary-50 p-8 rounded-2xl shadow-sm flex flex-col items-center text-center">
+          <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mb-6 shadow-sm">
+            <Phone className="h-8 w-8 text-primary-600" />
+          </div>
+          <h3 className="text-xl font-bold text-slate-900 mb-3">Phone</h3>
+          <p className="text-slate-600 mb-6 flex-1 text-lg font-medium">
+            096221 72998
+          </p>
+          <a
+            href="tel:09622172998"
+            className="w-full bg-primary-600 text-white hover:bg-primary-700 font-semibold px-4 py-2.5 rounded-xl transition-colors shadow-sm"
+          >
+            Call Now
+          </a>
+        </div>
+
+        <div className="bg-primary-50 p-8 rounded-2xl shadow-sm flex flex-col items-center text-center">
+          <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mb-6 shadow-sm">
+            <Clock className="h-8 w-8 text-primary-600" />
+          </div>
+          <h3 className="text-xl font-bold text-slate-900 mb-3">Hours</h3>
+          <div className="text-slate-600 mb-6 flex-1">
+            <p className="font-medium text-slate-700">Monday - Saturday</p>
+            <p>10 AM – 1 PM</p>
+            <p className="mb-2">4:30 PM – 9 PM</p>
+            <p className="font-medium text-slate-700 mt-3 pt-3 border-t border-primary-100">Sunday: <span className="text-red-500 font-semibold">Closed</span></p>
+          </div>
+        </div>
+      </div>
+
+      {/* Contact Form */}
+      <div className="w-full max-w-3xl mx-auto">
+        <div className="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
             <h2 className="text-2xl font-bold text-slate-800 mb-6">Send us a Message</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
@@ -131,7 +139,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                     className={`block w-full rounded-xl border-2 px-4 py-3 outline-none transition-colors ${getBorderColor(formData.name, isNameValid)}`}
-                    placeholder="Jane Doe"
+                    placeholder="Your Full Name"
                   />
                   {formData.name.length > 0 && !isNameValid && (
                     <p className="text-red-500 text-xs mt-1">Name must be at least 3 characters.</p>
@@ -149,7 +157,7 @@ const Contact = () => {
                       setFormData({...formData, mobile: val});
                     }}
                     className={`block w-full rounded-xl border-2 px-4 py-3 outline-none transition-colors ${getBorderColor(formData.mobile, isMobileValid)}`}
-                    placeholder="1234567890"
+                    placeholder="10-digit Mobile"
                   />
                   {formData.mobile.length > 0 && !isMobileValid && (
                     <p className="text-red-500 text-xs mt-1">Please enter exactly 10 digits.</p>
@@ -196,7 +204,6 @@ const Contact = () => {
             </form>
           </div>
         </div>
-      </div>
     </div>
   );
 };
