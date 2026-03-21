@@ -5,18 +5,16 @@ const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxpUZkqzG-FpaQGVKm5S9In3Ka4PLd2C5PFW4pPvk3BXOd80Lp-GLDDpWz0RMW-LiGh/exec';
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwZpNXV3gjn56VlttUJ8J5L06RJbacMVMmm3g4Fu2DIPu9oUlG-PIQJEQCs7hLSYKxM/exec';
 
 const backupToSheets = async (data) => {
   try {
-    console.log('Sending to sheets:', data);
-    const response = await fetch(SHEETS_URL, {
+    await fetch(SHEETS_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
-    console.log('Sheets response:', response);
   } catch (err) {
     console.error('Sheets backup failed:', err);
   }
@@ -55,7 +53,16 @@ export const addBooking = async (booking) => {
     console.error("Error adding booking", error);
     return null;
   }
-  await backupToSheets({ type: 'booking', ...data });
+  await backupToSheets({
+    type: 'booking',
+    id: data.id,
+    name: data.name,
+    mobile: data.mobile,
+    date: data.date,
+    timeSlot: data.timeSlot,
+    reason: data.reason || 'None',
+    createdAt: data.createdAt
+  });
   return data;
 };
 
@@ -121,7 +128,14 @@ export const addMessage = async (message) => {
     console.error("Error adding message", error);
     return;
   }
-  await backupToSheets({ type: 'message', ...data });
+  await backupToSheets({
+    type: 'message',
+    id: data.id,
+    name: data.name,
+    mobile: data.mobile,
+    message: data.message,
+    createdAt: data.createdAt
+  });
 };
 
 export const deleteMessage = async (id) => {
@@ -172,14 +186,14 @@ export const updatePaymentProfile = async (id, updates) => {
     balance: updatedProfile.balance
   }).eq('id', id);
 
-  const { data: patient } = await supabase.from('payments').select('*').eq('id', id).single();
-  if (patient) {
+  const { data: updatedPatient } = await supabase.from('payments').select('*').eq('id', id).single();
+  if (updatedPatient) {
     await backupToSheets({
       type: 'payment_update',
       id: id,
-      procedureCost: Number(updates.procedureCost),
-      totalPaid: patient.totalPaid,
-      balance: patient.balance
+      procedureCost: Number(updatedPatient.procedureCost),
+      totalPaid: Number(updatedPatient.totalPaid),
+      balance: Number(updatedPatient.balance)
     });
   }
 };
@@ -195,13 +209,13 @@ export const addInstallment = async (patientId, amount) => {
     date: new Date().toISOString(),
   });
 
-  const totalPaid = (p.totalPaid || 0) + Number(amount);
-  const balance = p.procedureCost - totalPaid;
+  const newTotalPaid = (p.totalPaid || 0) + Number(amount);
+  const newBalance = p.procedureCost - newTotalPaid;
 
   await supabase.from('payments').update({
     installments: newInstallments,
-    totalPaid,
-    balance
+    totalPaid: newTotalPaid,
+    balance: newBalance
   }).eq('id', patientId);
 
   const { data: updatedPatient } = await supabase.from('payments').select('*').eq('id', patientId).single();
@@ -209,8 +223,8 @@ export const addInstallment = async (patientId, amount) => {
     await backupToSheets({
       type: 'payment_update',
       id: patientId,
-      totalPaid: totalPaid,
-      balance: balance
+      totalPaid: newTotalPaid,
+      balance: newBalance
     });
   }
 };
@@ -227,13 +241,13 @@ export const removeInstallment = async (patientId, installmentId) => {
     const newInstallments = [...currentInst];
     newInstallments.splice(instIdx, 1);
 
-    const totalPaid = p.totalPaid - amt;
-    const balance = p.procedureCost - totalPaid;
+    const newTotalPaid = p.totalPaid - amt;
+    const newBalance = p.procedureCost - newTotalPaid;
 
     await supabase.from('payments').update({
       installments: newInstallments,
-      totalPaid,
-      balance
+      totalPaid: newTotalPaid,
+      balance: newBalance
     }).eq('id', patientId);
     
     const { data: updatedPatient } = await supabase.from('payments').select('*').eq('id', patientId).single();
@@ -241,8 +255,8 @@ export const removeInstallment = async (patientId, installmentId) => {
       await backupToSheets({
         type: 'payment_update',
         id: patientId,
-        totalPaid: totalPaid,
-        balance: balance
+        totalPaid: newTotalPaid,
+        balance: newBalance
       });
     }
   }
